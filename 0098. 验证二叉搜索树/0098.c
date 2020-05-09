@@ -7,10 +7,10 @@
  * };
  */
  /*
+ 更新：周末又看了一下，这种方法时间复杂度有点高，每个数都需要和左子树以及右子树的所有树比较。
  思路一：
- 今天生病，暂且抄一个。此答案是cpp.
+ 今天生病，暂且抄一个。
  */
-/*
 // 深搜函数，target为根结点的值，Position为0说明在遍历左子树，为1说明在遍历右子树
 bool DFS(struct TreeNode* root, int target, int Position){
     if (root == NULL)   // 到底就返回true 
@@ -31,12 +31,13 @@ bool isValidBST(struct TreeNode* root){
     return DFS(root->left, root->val, 0) && DFS(root->right, root->val, 1) && 
             isValidBST(root->left) && isValidBST(root->right);
 }
-*/
+
 /*
-思路二：
-中序遍历
+思路二：不过此方法数组上限设置成10000，不完美。如果正式使用，变长数组比较好。
+中序递归遍历
 我们有一个很正常的思路就是，通过中序遍历来保存这个二叉树的值，可以发现如果为中序遍历保存这些值的话，他们为单调递增排列，那么判断是否为二叉搜索树只需要比较相邻结点即可，从这个思路我们可以得到：
 */
+/*
 void inOrder(struct TreeNode* root,int arr[],int *len){
     if(root != NULL){
         inOrder(root->left,arr,len);
@@ -56,3 +57,4 @@ bool isValidBST(struct TreeNode* root){
     }
     return true;
 }
+*/
