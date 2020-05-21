@@ -43,20 +43,20 @@ public:
         int n = s.size();
         vector<vector<int>> dp(n, vector<int>(n)); //定义一个n维n列的二维数组。
         string ans;
-        for (int left = 0; left < n; ++left) {
-            for (int i = 0; i + left < n; ++i) {
-                int j = i + left;
-                if (left == 0) { //动归初始值
+        for (int len = 0; len < n; ++len) {
+            for (int i = 0; i + len < n; ++i) {
+                int j = i + len;
+                if (len == 0) { //动归初始值，所有长度为1的字符串P(i,j)赋值为true。
                     dp[i][j] = 1;
                 }
-                else if (left == 1) { //动归初始值
+                else if (len == 1) { //动归初始值，给所有长度为2的字符串P(i,i+1)赋值。
                     dp[i][j] = (s[i] == s[j]);
                 }
                 else { //动归状态转移方程
                     dp[i][j] = (s[i] == s[j] && dp[i + 1][j - 1]);
                 }
-                if (dp[i][j] && left + 1 > ans.size()) { //如果P(i,j)为true，且j−i+1的长度大于结果字符串的长度。
-                    ans = s.substr(i, left + 1); //更新结果值。
+                if (dp[i][j] && len + 1 > ans.size()) { //如果P(i,j)为true，且j−i+1的长度大于结果字符串的长度。
+                    ans = s.substr(i, len + 1); //更新结果值。
                 }
             }
         }
