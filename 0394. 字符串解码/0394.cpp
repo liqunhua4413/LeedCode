@@ -38,28 +38,27 @@ public:
             if (temp == '[')
             {
                 dataStk.push_back(num);
-                num = 0;
+                num = 0; //倍数num清零。
 
-                strStack.push_back(strTemp);
-                strTemp = "";
+                strStack.push_back(strTemp); //comment1
+                strTemp = ""; //字符串strTemp清空。
 
                 continue;
             }
 
             // 当遇到“]”时计算结果
-            // 1、把数字出栈，根据数字输出字符串；2、字符串栈出栈，把当前的字符串累加上去
+            //拼接字符串 res = last_res + cur_multi * res,last_res是上个 [ 到当前 [ 的字符串，例如 "3[a2[c]]" 中的 a。
             if (temp == ']')
             {
+                //数字和字符串转化：比如2[c]转化为cc。
                 int count = dataStk.back();
                 dataStk.pop_back();
-                string resTemp = strTemp;
-                for (int k = 1; k < count; k++)
-                {
-                    resTemp.append(strTemp);
-                }
-
-                strTemp = strStack.back() + resTemp;
-                strStack.pop_back();
+                string resTemp = "";
+                for (int k = 0; k < count; k++)
+                    resTemp.append(strTemp); //comment2              
+                //之后若还是字母，就会直接加到strTemp之后，因为它们是同一级的运算,若是左括号，strTemp会被压入strStack栈，作为上一层的运算
+                strTemp = strStack.back() + resTemp; //comment3
+                strStack.pop_back(); //3[a2[c]],第一次出栈的是"acc"字符串，这个"acc"字符串会在comment1或者comment2处重新加到comment3处的strTemp里。
             }
         }
 
