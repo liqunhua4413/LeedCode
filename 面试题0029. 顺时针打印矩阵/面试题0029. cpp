@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {        
+        vector<int> res;
+        if(matrix.size() == 0) return res;
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        int top = 0, bottom = rows - 1, left = 0, right = cols - 1;
+        while(top <= bottom && left <= right){ //如果只剩一行或者一列，则执行完前面两个for循环，到commnet1 和comment2 时，就会跳过。
+            for(int col = left; col <= right; col++){
+                res.push_back(matrix[top][col]);    
+            }            
+            for(int row = top + 1; row <= bottom; row++){
+                res.push_back(matrix[row][right]);               
+            }
+
+            //comment1，只有一行上面循环已经遍历完，则不在遍历。
+            //注意下面的判断条件：col > left和row > top没有等号，因为相等的情况在上面处理完了，不会再进这个if里面。
+            if(left < right && top < bottom){ 
+                for(int col = right - 1; col > left; col--){  
+                    res.push_back(matrix[bottom][col]);               
+                }                  
+                for(int row = bottom; row > top; row--){
+                    res.push_back(matrix[row][left]);
+                }
+            }   
+            top++;
+            right--; 
+            bottom--;
+            left++;
+        }
+        return res;
+    }
+};
