@@ -1,0 +1,29 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeDuplicateNodes(ListNode* head) {     
+        if(!head) return NULL;
+        set<int> si = {head->val};
+        ListNode* res = head;
+        
+        while(head->next){ //判断head->next是否是重复节点。    
+            //如果节点head->next不重复，把此节点值插入到set集合上，跳到下一个节点。
+            if(si.find(head->next->val) == si.end()){ 
+                si.insert(head->next->val);
+                head = head->next; //循环
+            } 
+            else{ //如果节点head->next重复，删除链表节点head->next.
+                head->next = head->next->next;
+                //head = head->next; //这里不能有这句话，因为已经删除重复节点，head->next是新节点了。
+            } 
+        }
+        return res;
+    }
+};
