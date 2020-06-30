@@ -1,0 +1,32 @@
+class CQueue {
+public:
+	CQueue() {}
+	void appendTail(int value) {
+		Sin.push(value);
+	}
+	int deleteHead() {
+		if (Sout.empty()) {
+			while (!Sin.empty()) {
+				Sout.push(Sin.top());
+				Sin.pop();
+			}
+		}
+		if (!Sout.empty()) {
+			int res = Sout.top(); Sout.pop();
+			return res;
+		}
+		else {
+			return -1;
+		}
+	}
+private:
+	stack<int> Sin, Sout;
+};
+
+
+/**
+ * Your CQueue object will be instantiated and called as such:
+ * CQueue* obj = new CQueue();
+ * obj->appendTail(value);
+ * int param_2 = obj->deleteHead();
+ */
